@@ -1,0 +1,48 @@
+<div class="container-fluid">
+  <h2>Registration Form</h2>
+  <form [formGroup]="registrationForm" (ngSubmit)="RegisterUser(registrationForm.value)">
+      {{registrationForm.value | json}}
+      {{registrationForm.value.EmpCode.value | json}}
+
+    <div class="form-group">
+        <label>Name</label>
+        <input [class.is-invalid]="Name.invalid
+        && Name.touched" type="text" class="form-control" formControlName="Name" [(ngModel)]="registrationForm.value.Name">
+      
+        <div *ngIf="Name.invalid && Name.touched">
+          <small *ngIf="Name.errors ?.required" class="text-danger">Name is required</small>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Code</label>
+        <input type="text" class="form-control" [class.is-invalid]="EmpCode.invalid && EmpCode.touched" formControlName="EmpCode" [(ngModel)]="registrationForm.value.EmpCode">
+        <div *ngIf="EmpCode.errors && (EmpCode.invalid && EmpCode.touched)" >
+          <small class="text-danger" *ngIf="EmpCode.errors.required">Code is required</small>
+      </div>
+    </div>
+
+    <div class="form-group">
+        <label>Salary</label>
+        <input type="number" pattern="^\d{10}$" [class.is-invalid]="Salary.invalid && Salary.touched" class="form-control" formControlName="Salary" [(ngModel)]="registrationForm.value.Salary">
+        <div *ngIf="Salary.errors && (Salary.invalid && Salary.touched)">
+          <small class="text-danger" *ngIf="Salary.errors.required">Salary is required</small>
+          <small class="text-danger" *ngIf="Salary.errors.pattern">Salary must be 10 digets</small>
+          <small class="text-danger" *ngIf="Salary.errors"> Salary must be number</small>
+  
+        </div>
+      </div>
+
+    
+
+      
+      <button class="btn btn-primary" type="submit">Post form</button>&nbsp;&nbsp;
+        <button class="btn btn-primary" type="button" (click)="GetUser()">Get form</button>&nbsp;&nbsp;
+        <button class="btn btn-primary" type="button" (click)="DeleteUser()">Delete form</button>&nbsp;&nbsp;
+        <button class="btn btn-primary" type="submit" (click)="PutUser()">Update form</button>
+      
+
+  </form>
+</div>
+
+
